@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Chess</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c3e50;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        
+        #game-container {
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        #chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 70px);
+            grid-template-rows: repeat(8, 70px);
+            border: 4px solid #333;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .light { background-color: #f0d9b5; }
+        .dark { background-color: #b58863; }
+        
+        .selected {
+            background-color: #7b9a56 !important;
+        }
+
+        .piece {
+            pointer-events: none; /* Let the square handle the clicks */
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Simple Chess</h1>
+    <div id="chessboard"></div>
+</div>
+
+<script>
+    const boardElement = document.getElementById('chessboard');
+    
+    // Unicode chess pieces
+    const pieces = {
+        'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟', // Black pieces
+        'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'  // White pieces
+    };
+
+    // Initial board setup (uppercase = White, lowercase = Black, empty = null)
+    const initialBoard = [
+        ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+        ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+        ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+    ];
+
+    let selectedSquare = null;
+
+    // Function to draw the board
+    function createBoard() {
+        boardElement.innerHTML = ''; // Clear board
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                const square = document.createElement('div');
+                square.dataset.row = row;
+                square.dataset.col = col;
+                
+                // Add alternating colors
+                const isLight = (row + col) % 2 === 0;
+                square.classList.add('square', isLight ? 'light' : 'dark');
+                
+                // Add piece if it exists
+                const pieceKey = initialBoard[row][col];
+                if (pieceKey) {
+                    const pieceSpan = document.createElement('span');
+                    pieceSpan.classList.add('piece');
+                    pieceSpan.textContent = pieces[pieceKey];
+                    // Color the pieces appropriately based on their case
+                    pieceSpan.style.color = pieceKey === pieceKey.toUpperCase() ? '#fff' : '#000';
+                    // Add text shadow to white pieces so they pop on light squares
+                    if (pieceKey === pieceKey.toUpperCase()) {
+                        pieceSpan.style.textShadow = "0px 0px 2px #000";
+                    }
+                    square.appendChild(pieceSpan);
+                }
+
+                // Add click listener for movement logic
+                square.addEventListener('click', handleSquareClick);
+                boardElement.appendChild(square);
+            }
+        }
+    }
+
+    // Handle selecting and moving pieces
+    function handleSquareClick(event) {
+        const clickedSquare = event.currentTarget;
+        const row = parseInt(clickedSquare.dataset.row);
+        const col = parseInt(clickedSquare.dataset.col);
+        const hasPiece = initialBoard[row][col] !== '';
+
+        if (selectedSquare) {
+            const selectedRow = parseInt(selectedSquare.dataset.row);
+            const selectedCol = parseInt(selectedSquare.dataset.col);
+
+            // If clicking the same square, deselect it
+            if (selectedRow === row && selectedCol === col) {
+                selectedSquare.classList.remove('selected');
+                selectedSquare = null;
+                return;
+            }
+
+            // Move the piece in our data array
+            initialBoard[row][col] = initialBoard[selectedRow][selectedCol];
+            initialBoard[selectedRow][selectedCol] = '';
+
+            // Deselect and re-render
+            selectedSquare.classList.remove('selected');
+            selectedSquare = null;
+            createBoard();
+
+        } else {
+            // Only select if there's a piece on the square
+            if (hasPiece) {
+                selectedSquare = clickedSquare;
+                clickedSquare.classList.add('selected');
+            }
+        }
+    }
+
+    // Initialize the game
+    createBoard();
+</script>
+
+</body>
+</html>
