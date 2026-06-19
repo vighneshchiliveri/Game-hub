@@ -1,61 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game-Hub</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game-Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Game-Hub</h1>
-        <input type="text" id="search-bar" placeholder="Search games...">
-    </header>
+  <!-- ambient backdrop -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="scanlines"></div>
+  </div>
 
-    <div class="filters">
-        <button class="filter-btn active" onclick="filterGames('all')">All Games</button>
-        <button class="filter-btn" onclick="filterGames('board')">Board</button>
-        <button class="filter-btn" onclick="filterGames('puzzle')">Puzzle</button>
-        <button class="filter-btn" onclick="filterGames('action')">Action</button>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#" aria-label="Game-Hub home">
+        <span class="brand-mark">▣</span>
+        <span class="brand-text">GAME<span class="brand-accent">/HUB</span></span>
+      </a>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="search-bar" placeholder="Search the shelf…" autocomplete="off">
+      </div>
     </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">04 CARTRIDGES LOADED</p>
+      <h1 class="hero-title">Pick your cartridge.<br>Press start.</h1>
+      <p class="hero-sub">A small shelf of browser games — board, puzzle, and action, no install required.</p>
+    </section>
+
+    <nav class="filters" aria-label="Filter games by category">
+      <button class="filter-btn active" data-filter="all">All Games</button>
+      <button class="filter-btn" data-filter="board">Board</button>
+      <button class="filter-btn" data-filter="puzzle">Puzzle</button>
+      <button class="filter-btn" data-filter="action">Action</button>
+    </nav>
 
     <div class="game-grid" id="game-grid">
-        <a href="chess.html" class="game-card" data-category="board">
-            <div class="game-image">♟️</div>
-            <div class="game-info">
-                <h2 class="game-title">Simple Chess</h2>
-                <span class="game-category">Board</span>
-            </div>
-        </a>
 
-        <a href="#" class="game-card" data-category="puzzle">
-            <div class="game-image">🧩</div>
-            <div class="game-info">
-                <h2 class="game-title">2048 Clone</h2>
-                <span class="game-category">Puzzle</span>
-            </div>
-        </a>
+      <a href="chess.html" class="game-card" data-category="board" data-title="Simple Chess" style="--i:0">
+        <div class="cart-edge"></div>
+        <div class="cart-body">
+          <span class="cart-tag">Board</span>
+          <div class="cart-art">
+            <span class="cart-emoji">♟️</span>
+          </div>
+          <h2 class="cart-title">Simple Chess</h2>
+          <p class="cart-desc">Move the pieces. No rules enforced — just you and the board.</p>
+          <span class="cart-cta">Play <span class="arrow">→</span></span>
+        </div>
+      </a>
 
-        <a href="#" class="game-card" data-category="action">
-            <div class="game-image">🐍</div>
-            <div class="game-info">
-                <h2 class="game-title">Retro Snake</h2>
-                <span class="game-category">Action</span>
-            </div>
-        </a>
+      <a href="#" class="game-card is-soon" data-category="puzzle" data-title="2048 Clone" style="--i:1">
+        <div class="cart-edge"></div>
+        <div class="cart-body">
+          <span class="cart-tag">Puzzle</span>
+          <div class="cart-art">
+            <span class="cart-emoji">🧩</span>
+          </div>
+          <h2 class="cart-title">2048 Clone</h2>
+          <p class="cart-desc">Slide, merge, repeat. Chase the tile that doubles everything.</p>
+          <span class="cart-cta cart-cta--soon">Coming soon</span>
+        </div>
+      </a>
 
-        <a href="#" class="game-card" data-category="board">
-            <div class="game-image">❌⭕</div>
-            <div class="game-info">
-                <h2 class="game-title">Tic-Tac-Toe</h2>
-                <span class="game-category">Board</span>
-            </div>
-        </a>
-        
-        <div id="no-results" class="no-results">No games found. Try another search!</div>
+      <a href="#" class="game-card is-soon" data-category="action" data-title="Retro Snake" style="--i:2">
+        <div class="cart-edge"></div>
+        <div class="cart-body">
+          <span class="cart-tag">Action</span>
+          <div class="cart-art">
+            <span class="cart-emoji">🐍</span>
+          </div>
+          <h2 class="cart-title">Retro Snake</h2>
+          <p class="cart-desc">Eat, grow, don't double back. The arcade classic, rebuilt.</p>
+          <span class="cart-cta cart-cta--soon">Coming soon</span>
+        </div>
+      </a>
+
+      <a href="#" class="game-card is-soon" data-category="board" data-title="Tic-Tac-Toe" style="--i:3">
+        <div class="cart-edge"></div>
+        <div class="cart-body">
+          <span class="cart-tag">Board</span>
+          <div class="cart-art">
+            <span class="cart-emoji">❌⭕</span>
+          </div>
+          <h2 class="cart-title">Tic-Tac-Toe</h2>
+          <p class="cart-desc">Three in a row wins. Quick, sharp, never quite solved.</p>
+          <span class="cart-cta cart-cta--soon">Coming soon</span>
+        </div>
+      </a>
+
     </div>
 
-    <script src="script.js"></script>
+    <p id="no-results" class="no-results" hidden>No cartridges match that search. Try another title.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built for the shelf. New cartridges added over time.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
