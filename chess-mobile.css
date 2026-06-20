@@ -1,0 +1,33 @@
+/* ============================================
+   Simple Chess — mobile layout
+   Spacing and sizing for screens 560px and narrower.
+   ============================================ */
+@media (max-width: 560px) {
+
+  body {
+    gap: 16px;
+    padding: 20px 12px;
+  }
+
+  .top-bar {
+    max-width: 380px;
+  }
+
+  .subtitle {
+    margin: 0 0 16px;
+  }
+
+  #chessboard {
+    grid-template-columns: repeat(8, minmax(34px, 46px));
+    grid-template-rows: repeat(8, minmax(34px, 46px));
+  }
+
+  .square {
+    font-size: clamp(20px, 7vw, 30px);
+  }
+
+  .hint {
+    margin-top: 14px;
+    padding: 0 8px;
+  }
+}

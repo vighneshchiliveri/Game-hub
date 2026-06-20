@@ -1,0 +1,56 @@
+/* ============================================
+   Retro Snake — mobile layout
+   Spacing and sizing for screens 560px and narrower.
+   The canvas keeps its 400x400 internal pixel buffer
+   (set in HTML, used by the game's draw math) and is
+   only scaled down visually here.
+   ============================================ */
+@media (max-width: 560px) {
+
+  body {
+    gap: 12px;
+    padding: 18px 10px;
+  }
+
+  .top-bar {
+    max-width: 360px;
+  }
+
+  .game-container {
+    max-width: 360px;
+  }
+
+  .subtitle {
+    margin: 0 0 12px;
+    padding: 0 8px;
+  }
+
+  .hud {
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  canvas {
+    width: min(86vw, 340px);
+    height: min(86vw, 340px);
+  }
+
+  .controls-row {
+    margin-top: 12px;
+  }
+
+  .dpad {
+    margin-top: 14px;
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(3, 48px);
+  }
+
+  .dpad-btn {
+    font-size: 17px;
+  }
+
+  .hint {
+    margin-top: 10px;
+    padding: 0 8px;
+  }
+}
