@@ -1,119 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game-Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style-desktop.css">
-<link rel="stylesheet" href="style-mobile.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NCERT Archive — Notes, Summaries & Q&A</title>
+  <meta name="description" content="NCERT notes, summaries and question answers collection." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- ambient backdrop -->
-  <div class="backdrop" aria-hidden="true">
-    <div class="glow glow-a"></div>
-    <div class="glow glow-b"></div>
-    <div class="scanlines"></div>
-  </div>
+  <div class="grain" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#" aria-label="Game-Hub home">
-        <span class="brand-mark">▣</span>
-        <span class="brand-text">GAME<span class="brand-accent">/HUB</span></span>
-      </a>
-
-      <div class="search-wrap">
-        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-          <line x1="16.5" y1="16.5" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input type="text" id="search-bar" placeholder="Search the shelf…" autocomplete="off">
-      </div>
+      <button class="brand" id="homeBtn" type="button" aria-label="Go to home">
+        <span class="brand-mark">N</span>
+        <span class="brand-text">
+          <h1>NCERT</h1>
+          <p>notes, summaries, question answers</p>
+        </span>
+      </button>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <p class="hero-eyebrow">04 CARTRIDGES LOADED</p>
-      <h1 class="hero-title">Pick your cartridge.<br>Press start.</h1>
-      <p class="hero-sub">A small shelf of browser games — board, puzzle, and action, no install required.</p>
+    <section class="class-select-section" id="classSelectSection">
+      <span class="section-kicker">Step 1</span>
+      <h2>Select Class</h2>
+      <p>Choose a class to view related NCERT notes, summaries and question answers.</p>
+      <div class="class-grid" id="classGrid"></div>
     </section>
 
-    <nav class="filters" aria-label="Filter games by category">
-      <button class="filter-btn active" data-filter="all">All Games</button>
-      <button class="filter-btn" data-filter="board">Board</button>
-      <button class="filter-btn" data-filter="puzzle">Puzzle</button>
-      <button class="filter-btn" data-filter="action">Action</button>
-    </nav>
+    <section class="subject-select-section" id="subjectSelectSection" hidden>
+      <span class="section-kicker">Step 2</span>
+      <h2>Select Subject</h2>
+      <p>Choose a subject to view available NCERT textbooks.</p>
+      <div class="subject-grid" id="subjectGrid"></div>
+    </section>
 
-    <div class="game-grid" id="game-grid">
+    <section class="textbook-select-section" id="textbookSelectSection" hidden>
+      <span class="section-kicker">Step 3</span>
+      <h2>Select Textbook</h2>
+      <p>Choose a textbook to view its chapter notes, summaries and question answers.</p>
+      <div class="textbook-grid" id="textbookGrid"></div>
+    </section>
 
-      <a href="chess.html" class="game-card" data-category="board" data-title="Simple Chess" style="--i:0">
-        <div class="cart-edge"></div>
-        <div class="cart-body">
-          <span class="cart-tag">Board</span>
-          <div class="cart-art">
-            <span class="cart-emoji">♟️</span>
-          </div>
-          <h2 class="cart-title">Simple Chess</h2>
-          <p class="cart-desc">Move the pieces. No rules enforced — just you and the board.</p>
-          <span class="cart-cta">Play <span class="arrow">→</span></span>
+    <section class="catalog-controls" id="catalogControls" hidden>
+      <div class="selected-class-bar">
+        <div>
+          <span class="section-kicker">Selected Class</span>
+          <strong id="selectedClassText">Class</strong>
         </div>
-      </a>
-
-      <a href="2048.html" class="game-card" data-category="puzzle" data-title="2048 Clone" style="--i:1">
-        <div class="cart-edge"></div>
-        <div class="cart-body">
-          <span class="cart-tag">Puzzle</span>
-          <div class="cart-art">
-            <span class="cart-emoji">🧩</span>
-          </div>
-          <h2 class="cart-title">2048 Clone</h2>
-          <p class="cart-desc">Slide, merge, repeat. Chase the tile that doubles everything.</p>
-          <span class="cart-cta">Play <span class="arrow">→</span></span>
+        <div>
+          <span class="section-kicker">Selected Subject</span>
+          <strong id="selectedSubjectText">Subject</strong>
         </div>
-      </a>
-
-      <a href="snake.html" class="game-card" data-category="action" data-title="Retro Snake" style="--i:2">
-        <div class="cart-edge"></div>
-        <div class="cart-body">
-          <span class="cart-tag">Action</span>
-          <div class="cart-art">
-            <span class="cart-emoji">🐍</span>
-          </div>
-          <h2 class="cart-title">Retro Snake</h2>
-          <p class="cart-desc">Eat, grow, don't double back. The arcade classic, rebuilt.</p>
-          <span class="cart-cta">Play <span class="arrow">→</span></span>
+        <div>
+          <span class="section-kicker">Selected Textbook</span>
+          <strong id="selectedBookText">Textbook</strong>
         </div>
-      </a>
-
-      <a href="tic-tac-toe.html" class="game-card" data-category="board" data-title="Tic-Tac-Toe" style="--i:3">
-        <div class="cart-edge"></div>
-        <div class="cart-body">
-          <span class="cart-tag">Board</span>
-          <div class="cart-art">
-            <span class="cart-emoji">❌⭕</span>
-          </div>
-          <h2 class="cart-title">Tic-Tac-Toe</h2>
-          <p class="cart-desc">Three in a row wins. Quick, sharp, never quite solved.</p>
-          <span class="cart-cta">Play <span class="arrow">→</span></span>
+        <div class="selected-actions">
+          <button id="changeTextbookBtn" type="button">Change Textbook</button>
+          <button id="changeSubjectBtn" type="button">Change Subject</button>
+          <button id="changeClassBtn" type="button">Change Class</button>
         </div>
-      </a>
+      </div>
 
-    </div>
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="Search chapter, subject, book..." autocomplete="off" />
+        <span class="search-count" id="resultCount">0 / 0</span>
+      </div>
+    </section>
 
-    <p id="no-results" class="no-results" hidden>No cartridges match that search. Try another title.</p>
+    <section class="catalog" id="catalog" aria-live="polite"></section>
+
+    <section class="content-type-section is-page-screen" id="contentTypeSection" hidden>
+      <div class="content-type-header">
+        <div>
+          <span class="section-kicker">Chapter Selected</span>
+          <h2>Select Content</h2>
+          <p id="selectedChapterText">Choose Notes, Summary, or Q&A.</p>
+        </div>
+        <button id="backToChaptersBtn" type="button">← Back to Chapter List</button>
+      </div>
+      <div class="content-type-grid" id="contentTypeGrid"></div>
+    </section>
+
+    <section class="empty-state" id="emptyState" hidden>No NCERT material matches your search.</section>
   </main>
 
+  <section class="reader-view" id="readerView" hidden>
+    <div class="reader-shell">
+      <div class="reader-toolbar">
+        <button id="readerBack" type="button">← Back</button>
+        <div class="reader-actions">
+          <button id="readerPdf" type="button">Open PDF</button>
+          <button id="readerPrint" type="button">Print</button>
+        </div>
+      </div>
+
+      <article class="reader-paper">
+        <p class="reader-kicker" id="readerKicker">#</p>
+        <h1 id="readerTitle"></h1>
+
+
+        <div class="reader-content" id="readerContent"></div>
+
+        <div class="reader-nav">
+          <button id="prevChapterBtn" type="button">← Previous</button>
+          <button id="nextChapterBtn" type="button">Next →</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <footer class="site-footer">
-    <p>Built for the shelf. New cartridges added over time.</p>
+    NCERT collection for study use. Created by Chiliveri Vighnesh 
   </footer>
 
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
