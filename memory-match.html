@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Match - Game-Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-desktop.css">
+<link rel="stylesheet" href="style-mobile.css">
+<link rel="stylesheet" href="memory-match.css">
+</head>
+<body>
+
+  <!-- Ambient backdrop -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Back to Game-Hub home">
+        <span class="brand-mark">←</span>
+        <span class="brand-text">BACK<span class="brand-accent">/HUB</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-header hero">
+      <p class="hero-eyebrow">PUZZLE CARTRIDGE</p>
+      <h1 class="hero-title">Memory Match</h1>
+      
+      <div class="game-controls">
+        <div class="stat-box" id="moves-box">Moves: 0</div>
+        <button id="reset-btn" class="filter-btn active">Restart Game</button>
+        <div class="stat-box" id="timer-box">Time: 0s</div>
+      </div>
+    </section>
+
+    <div class="board-container">
+      <div id="board" class="memory-board"></div>
+    </div>
+    
+    <p id="game-message" class="hero-sub" style="text-align: center; margin-top: 20px;"></p>
+  </main>
+
+  <script src="memory-match.js"></script>
+</body>
+</html>

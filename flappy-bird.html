@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flappy Bird - Game-Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-desktop.css">
+<link rel="stylesheet" href="style-mobile.css">
+<link rel="stylesheet" href="flappy-bird.css">
+</head>
+<body>
+
+  <!-- Ambient backdrop -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="scanlines"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Back to Game-Hub home">
+        <span class="brand-mark">←</span>
+        <span class="brand-text">BACK<span class="brand-accent">/HUB</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-header hero">
+      <p class="hero-eyebrow">ACTION CARTRIDGE</p>
+      <h1 class="hero-title">Flappy Bird</h1>
+      
+      <div class="game-controls">
+        <div class="stat-box" id="score-box">Score: 0</div>
+        <button id="reset-btn" class="filter-btn active">Start Game</button>
+      </div>
+    </section>
+
+    <div class="board-container">
+      <div id="game-area" class="flappy-container">
+        <div id="bird">🐦</div>
+      </div>
+    </div>
+    
+    <p class="hero-sub" style="text-align: center; margin: 0 auto;">
+      <strong>Controls:</strong> Press Spacebar, Arrow Up, or Click/Tap the game area to flap.
+    </p>
+    <p id="game-message" class="hero-sub" style="text-align: center; margin-top: 10px; color: #ef4444; font-weight: 600;"></p>
+  </main>
+
+  <script src="flappy-bird.js"></script>
+</body>
+</html>

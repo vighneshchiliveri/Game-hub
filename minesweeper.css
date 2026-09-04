@@ -1,0 +1,99 @@
+/* ============================================
+   Mine Sweeper Styles
+   ============================================ */
+
+.game-header {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.stat-box {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 8px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 60px;
+  animation: rise 0.7s var(--ease) 0.1s both;
+}
+
+.minesweeper-board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 2px;
+  background: var(--line);
+  padding: 6px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(124, 92, 255, 0.2);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
+
+.cell {
+  background: var(--panel-2);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.cell:hover:not(.revealed) {
+  background: var(--accent-soft);
+}
+
+.cell:active:not(.revealed) {
+  transform: scale(0.95);
+}
+
+.cell.revealed {
+  background: var(--bg);
+  cursor: default;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.cell.mine {
+  background: rgba(255, 50, 50, 0.2);
+}
+
+/* Number Colors */
+.cell[data-num="1"] { color: #3b82f6; } /* Blue */
+.cell[data-num="2"] { color: #22c55e; } /* Green */
+.cell[data-num="3"] { color: #ef4444; } /* Red */
+.cell[data-num="4"] { color: #8b5cf6; } /* Purple */
+.cell[data-num="5"] { color: #f59e0b; } /* Orange */
+.cell[data-num="6"] { color: #06b6d4; } /* Cyan */
+.cell[data-num="7"] { color: #f43f5e; } /* Pink */
+.cell[data-num="8"] { color: #64748b; } /* Gray */
+
+@media (max-width: 560px) {
+  .minesweeper-board {
+    grid-template-columns: repeat(10, 32px);
+    grid-template-rows: repeat(10, 32px);
+  }
+  .cell { font-size: 16px; }
+  .stat-box { font-size: 20px; padding: 6px 12px;}
+}

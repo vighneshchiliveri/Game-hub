@@ -1,0 +1,80 @@
+/* ============================================
+   Flappy Bird Styles
+   ============================================ */
+
+.game-header {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.stat-box {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 30px;
+  animation: rise 0.7s var(--ease) 0.1s both;
+}
+
+.flappy-container {
+  width: 320px;
+  height: 480px;
+  background: linear-gradient(180deg, var(--panel-2), var(--bg));
+  border: 1px solid rgba(124, 92, 255, 0.3);
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.5);
+  cursor: pointer;
+  touch-action: none; /* Prevents zooming on double tap */
+}
+
+#bird {
+  position: absolute;
+  left: 50px;
+  top: 220px;
+  width: 34px;
+  height: 34px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: transform 0.1s ease;
+}
+
+.pipe {
+  position: absolute;
+  width: 50px;
+  background: linear-gradient(90deg, #008f73, var(--teal));
+  border: 2px solid rgba(0, 229, 184, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 229, 184, 0.2);
+}
+
+@media (max-width: 560px) {
+  .flappy-container {
+    width: 100%;
+    max-width: 320px;
+    height: 400px;
+  }
+}

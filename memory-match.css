@@ -1,0 +1,119 @@
+/* ============================================
+   Memory Match Styles
+   ============================================ */
+
+.game-header {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.stat-box {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.board-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 60px;
+  perspective: 1000px;
+  animation: rise 0.7s var(--ease) 0.1s both;
+}
+
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(4, 80px);
+  gap: 12px;
+}
+
+.memory-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease);
+}
+
+.memory-card:active {
+  transform: scale(0.95);
+}
+
+.memory-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched .back {
+  border-color: var(--teal);
+  box-shadow: 0 0 20px var(--teal-soft);
+  opacity: 0.8;
+}
+
+.memory-card .front,
+.memory-card .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
+}
+
+.memory-card .front {
+  background: linear-gradient(135deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line);
+  transform: rotateY(0deg);
+}
+
+.memory-card .front::after {
+  content: '?';
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--teal);
+  opacity: 0.3;
+}
+
+.memory-card:hover .front {
+  border-color: rgba(124, 92, 255, 0.4);
+}
+
+.memory-card .back {
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 15px var(--accent-soft);
+}
+
+@media (max-width: 560px) {
+  .memory-board {
+    grid-template-columns: repeat(4, 65px);
+    grid-template-rows: repeat(4, 65px);
+    gap: 10px;
+  }
+  
+  .memory-card .front,
+  .memory-card .back {
+    font-size: 32px;
+  }
+}
