@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battleship - Game-Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-desktop.css">
+<link rel="stylesheet" href="style-mobile.css">
+<link rel="stylesheet" href="battleship.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"><div class="glow glow-a"></div><div class="scanlines"></div></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">←</span>
+        <span class="brand-text">BACK<span class="brand-accent">/HUB</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-header hero">
+      <p class="hero-eyebrow">BOARD CARTRIDGE</p>
+      <h1 class="hero-title">Battleship</h1>
+      <div class="game-controls">
+        <button id="reset-btn" class="filter-btn active">Deploy New Fleet</button>
+      </div>
+    </section>
+
+    <div class="boards-wrapper">
+      <div class="player-area">
+        <h3 class="board-title">Your Fleet (Purple)</h3>
+        <div id="player-board" class="battle-board"></div>
+      </div>
+      <div class="cpu-area">
+        <h3 class="board-title">Enemy Radar (Target Here)</h3>
+        <div id="cpu-board" class="battle-board target-mode"></div>
+      </div>
+    </div>
+    
+    <p id="game-message" class="hero-sub" style="text-align: center; color: var(--teal); font-weight: 600; margin-top: 20px;">Commander, fire at the Enemy Radar!</p>
+  </main>
+
+  <script src="battleship.js"></script>
+</body>
+</html>

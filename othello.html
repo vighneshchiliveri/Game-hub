@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Othello - Game-Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-desktop.css">
+<link rel="stylesheet" href="style-mobile.css">
+<link rel="stylesheet" href="othello.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"><div class="glow glow-b"></div><div class="scanlines"></div></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">←</span>
+        <span class="brand-text">BACK<span class="brand-accent">/HUB</span></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="game-header hero">
+      <p class="hero-eyebrow">BOARD CARTRIDGE</p>
+      <h1 class="hero-title">Othello</h1>
+      <div class="game-controls">
+        <div class="stat-box p1" id="p1-score">Purple: 2</div>
+        <button id="reset-btn" class="filter-btn active">Restart Game</button>
+        <div class="stat-box p2" id="p2-score">Teal: 2</div>
+      </div>
+    </section>
+
+    <div class="board-container">
+      <div id="othello-board"></div>
+    </div>
+    
+    <p id="turn-message" class="hero-sub" style="text-align: center; color: var(--accent); font-weight: 600;">Purple's Turn</p>
+  </main>
+
+  <script src="othello.js"></script>
+</body>
+</html>
