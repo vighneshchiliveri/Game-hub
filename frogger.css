@@ -3,7 +3,7 @@
 .stat-box { font-family: var(--font-display); font-size: 20px; font-weight: 700; background: var(--panel); border: 1px solid var(--line); padding: 8px 16px; border-radius: 8px; min-width: 120px; text-align: center; }
 .board-container { display: flex; justify-content: center; margin: 0 auto 30px; animation: rise 0.7s var(--ease) 0.1s both; }
 
-#snake-canvas {
+#frogger-canvas {
   background: var(--bg);
   border: 1px solid rgba(124, 92, 255, 0.4);
   border-radius: var(--radius);
@@ -12,5 +12,5 @@
 }
 
 @media (max-width: 450px) {
-  #snake-canvas { width: 100%; height: auto; aspect-ratio: 1/1; }
+  #frogger-canvas { width: 100%; height: auto; aspect-ratio: 1/1; }
 }

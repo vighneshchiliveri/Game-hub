@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tron Snake Duel - Game-Hub</title>
+<title>Pac-Man Mini - Game-Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="style-desktop.css">
 <link rel="stylesheet" href="style-mobile.css">
-<link rel="stylesheet" href="snake.css">
+<link rel="stylesheet" href="pacman.css">
 </head>
 <body>
   <div class="backdrop" aria-hidden="true">
@@ -28,7 +28,7 @@
   <main>
     <section class="game-header hero">
       <p class="hero-eyebrow">ACTION CARTRIDGE</p>
-      <h1 class="hero-title">Tron Snake Duel</h1>
+      <h1 class="hero-title">Pac-Man Mini</h1>
       <div class="game-controls">
         <div class="stat-box" id="score-box">Score: 0</div>
         <button id="reset-btn" class="filter-btn active">Start Game</button>
@@ -36,13 +36,13 @@
     </section>
 
     <div class="board-container">
-      <canvas id="snake-canvas" width="400" height="400"></canvas>
+      <canvas id="pacman-canvas" width="400" height="400"></canvas>
     </div>
     
-    <p class="hero-sub" style="text-align: center;"><strong>Controls:</strong> Arrow keys to maneuver your glowing snake.</p>
+    <p class="hero-sub" style="text-align: center;"><strong>Controls:</strong> Arrow keys to steer through the neon corridors.</p>
     <p id="game-message" class="hero-sub" style="text-align: center; color: var(--teal); font-weight: 600;"></p>
   </main>
 
-  <script src="snake.js"></script>
+  <script src="pacman.js"></script>
 </body>
 </html>

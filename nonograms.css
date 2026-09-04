@@ -1,0 +1,76 @@
+.game-header { text-align: center; padding: 40px 0 20px; }
+.game-controls { display: flex; justify-content: center; gap: 24px; margin-top: 24px; }
+.board-container { display: flex; justify-content: center; margin: 0 auto 30px; animation: rise 0.7s var(--ease) 0.1s both; }
+
+#picross-board {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 50px);
+  grid-template-rows: 80px repeat(5, 50px);
+  gap: 2px;
+  background: var(--line);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(124, 92, 255, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0,0,0,0.8);
+  user-select: none;
+}
+
+.clue-cell {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.row-clue {
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.col-clue {
+  gap: 2px;
+}
+
+.empty-corner {
+  background: transparent;
+}
+
+.grid-cell {
+  background: var(--panel);
+  cursor: pointer;
+  transition: background 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.grid-cell:hover {
+  background: var(--panel-2);
+}
+
+.grid-cell.filled {
+  background: var(--teal);
+  box-shadow: 0 0 10px rgba(0, 229, 184, 0.4) inset;
+}
+
+.grid-cell.marked {
+  color: #ef4444;
+}
+
+@media (max-width: 500px) {
+  #picross-board {
+    grid-template-columns: 60px repeat(5, 40px);
+    grid-template-rows: 60px repeat(5, 40px);
+  }
+}

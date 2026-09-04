@@ -1,0 +1,64 @@
+.game-header { text-align: center; padding: 40px 0 20px; }
+.game-controls { display: flex; justify-content: center; gap: 24px; margin-top: 24px; }
+.stat-box { font-family: var(--font-display); font-size: 20px; font-weight: 700; background: var(--panel); border: 1px solid var(--line); padding: 8px 16px; border-radius: 8px; min-width: 150px; text-align: center; }
+.board-container { display: flex; justify-content: center; margin: 0 auto 30px; animation: rise 0.7s var(--ease) 0.1s both; }
+
+#mancala-board {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--line);
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(124, 92, 255, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0,0,0,0.8);
+}
+
+.store {
+  width: 70px;
+  height: 220px;
+  background: var(--bg);
+  border: 2px solid var(--panel-2);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  font-family: var(--font-display);
+}
+
+.store-label { font-size: 14px; color: var(--text-muted); font-weight: 700; }
+.seed-count { font-size: 22px; font-weight: 700; color: var(--teal); }
+
+.pits-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 65px);
+  grid-template-rows: repeat(2, 95px);
+  gap: 12px;
+}
+
+.pit {
+  background: var(--bg);
+  border: 2px solid var(--panel-2);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.pit:hover {
+  border-color: var(--teal);
+  box-shadow: 0 0 10px rgba(0, 229, 184, 0.3);
+}
+
+.pit .seed-count { font-size: 18px; }
+
+@media (max-width: 640px) {
+  #mancala-board { padding: 12px; gap: 8px; }
+  .store { width: 45px; height: 160px; }
+  .pits-grid { grid-template-columns: repeat(6, 45px); grid-template-rows: repeat(2, 70px); gap: 6px; }
+  .pit .seed-count, .seed-count { font-size: 14px; }
+}

@@ -1,0 +1,65 @@
+.game-header { text-align: center; padding: 40px 0 20px; }
+.game-controls { display: flex; justify-content: center; gap: 20px; margin-top: 24px; flex-wrap: wrap; }
+.stat-box { font-family: var(--font-display); font-size: 18px; font-weight: 700; background: var(--panel); border: 1px solid var(--line); padding: 8px 16px; border-radius: 8px; text-align: center; }
+.board-container { display: flex; justify-content: center; margin: 0 auto 30px; animation: rise 0.7s var(--ease) 0.1s both; }
+
+#dots-board {
+  display: grid;
+  grid-template-columns: repeat(3, 30px 70px) 30px;
+  grid-template-rows: repeat(3, 30px 70px) 30px;
+  background: var(--line);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(124, 92, 255, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0,0,0,0.8);
+}
+
+.dot {
+  width: 30px;
+  height: 30px;
+  background: var(--panel-2);
+  border-radius: 50%;
+}
+
+.line-h {
+  height: 30px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.15s;
+}
+.line-h:hover { background: rgba(0, 229, 184, 0.3); }
+.line-h.active { background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+.line-h.active.p2 { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+.line-v {
+  width: 30px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.15s;
+}
+.line-v:hover { background: rgba(0, 229, 184, 0.3); }
+.line-v.active { background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+.line-v.active.p2 { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+.box {
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: bold;
+}
+.box.p1 { color: var(--teal); text-shadow: 0 0 10px var(--teal); }
+.box.p2 { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+
+@media (max-width: 500px) {
+  #dots-board {
+    grid-template-columns: repeat(3, 20px 50px) 20px;
+    grid-template-rows: repeat(3, 20px 50px) 20px;
+    padding: 10px;
+  }
+  .dot { width: 20px; height: 20px; }
+  .line-h { height: 20px; }
+  .line-v { width: 20px; }
+}

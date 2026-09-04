@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tron Snake Duel - Game-Hub</title>
+<title>Tron Light Cycles - Game-Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="style-desktop.css">
 <link rel="stylesheet" href="style-mobile.css">
-<link rel="stylesheet" href="snake.css">
+<link rel="stylesheet" href="tron.css">
 </head>
 <body>
   <div class="backdrop" aria-hidden="true">
@@ -28,21 +28,21 @@
   <main>
     <section class="game-header hero">
       <p class="hero-eyebrow">ACTION CARTRIDGE</p>
-      <h1 class="hero-title">Tron Snake Duel</h1>
+      <h1 class="hero-title">Tron Cycles</h1>
       <div class="game-controls">
-        <div class="stat-box" id="score-box">Score: 0</div>
-        <button id="reset-btn" class="filter-btn active">Start Game</button>
+        <div class="stat-box" id="status-box">P1 (Teal) vs P2 (Purple)</div>
+        <button id="reset-btn" class="filter-btn active">Start Grid</button>
       </div>
     </section>
 
     <div class="board-container">
-      <canvas id="snake-canvas" width="400" height="400"></canvas>
+      <canvas id="tron-canvas" width="600" height="400"></canvas>
     </div>
     
-    <p class="hero-sub" style="text-align: center;"><strong>Controls:</strong> Arrow keys to maneuver your glowing snake.</p>
+    <p class="hero-sub" style="text-align: center;"><strong>Controls:</strong> P1 (Arrow Keys) | P2 (W/A/S/D). Don't hit the walls or trails!</p>
     <p id="game-message" class="hero-sub" style="text-align: center; color: var(--teal); font-weight: 600;"></p>
   </main>
 
-  <script src="snake.js"></script>
+  <script src="tron.js"></script>
 </body>
 </html>
