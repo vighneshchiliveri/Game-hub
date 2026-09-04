@@ -1,0 +1,44 @@
+/* ============================================
+   Retro Snake — desktop layout
+   Spacing and sizing for screens wider than 560px.
+   ============================================ */
+@media (min-width: 561px) {
+
+  body {
+    gap: 16px;
+    padding: 28px 16px;
+  }
+
+  .top-bar {
+    max-width: 480px;
+  }
+
+  .game-container {
+    max-width: 480px;
+  }
+
+  .subtitle {
+    margin: 0 0 16px;
+  }
+
+  .hud {
+    margin-bottom: 14px;
+  }
+
+  canvas {
+    width: 400px;
+    height: 400px;
+  }
+
+  .controls-row {
+    margin-top: 16px;
+  }
+
+  .dpad {
+    margin-top: 18px;
+  }
+
+  .hint {
+    margin-top: 14px;
+  }
+}

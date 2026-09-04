@@ -1,0 +1,39 @@
+/* ============================================
+   Tic-Tac-Toe — mobile layout
+   Spacing and sizing for screens 560px and narrower.
+   ============================================ */
+@media (max-width: 560px) {
+
+  body {
+    gap: 14px;
+    padding: 20px 12px;
+  }
+
+  .top-bar {
+    max-width: 320px;
+  }
+
+  .subtitle {
+    margin: 0 0 14px;
+    padding: 0 8px;
+  }
+
+  #board {
+    grid-template-columns: repeat(3, minmax(64px, 88px));
+    grid-template-rows: repeat(3, minmax(64px, 88px));
+    gap: 6px;
+  }
+
+  .cell {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+
+  .controls {
+    margin-top: 16px;
+  }
+
+  .score-row {
+    margin-top: 14px;
+    gap: 12px;
+  }
+}

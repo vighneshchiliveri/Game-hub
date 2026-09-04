@@ -1,0 +1,46 @@
+/* ============================================
+   Game-Hub — mobile layout
+   Spacing, sizing, and grid behavior for
+   screens 560px and narrower.
+   Loaded after style.css; pairs with style-desktop.css.
+   ============================================ */
+@media (max-width: 560px) {
+
+  .header-inner {
+    padding: 14px 18px;
+  }
+
+  main {
+    padding: 0 18px 60px;
+  }
+
+  .hero {
+    padding: 44px 0 28px;
+  }
+
+  .filters {
+    margin-bottom: 28px;
+  }
+
+  .game-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .cart-body {
+    padding: 16px 14px 18px;
+  }
+
+  .cart-art {
+    height: 72px;
+    font-size: 36px;
+  }
+
+  .no-results {
+    padding: 48px 16px;
+  }
+
+  .site-footer {
+    padding: 24px 18px 32px;
+  }
+}

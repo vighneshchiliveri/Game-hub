@@ -1,0 +1,44 @@
+/* ============================================
+   2048 — desktop layout
+   Spacing and sizing for screens wider than 560px.
+   ============================================ */
+@media (min-width: 561px) {
+
+  body {
+    gap: 16px;
+    padding: 28px 16px;
+  }
+
+  .top-bar {
+    max-width: 420px;
+  }
+
+  .game-container {
+    max-width: 420px;
+  }
+
+  .subtitle {
+    margin: 0 0 16px;
+  }
+
+  .hud {
+    margin-bottom: 14px;
+  }
+
+  #board {
+    grid-template-columns: repeat(4, 90px);
+    grid-template-rows: repeat(4, 90px);
+  }
+
+  .controls-row {
+    margin-top: 16px;
+  }
+
+  .dpad {
+    margin-top: 18px;
+  }
+
+  .hint {
+    margin-top: 14px;
+  }
+}

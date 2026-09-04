@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic-Tac-Toe · Game-Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tic-tac-toe.css">
+<link rel="stylesheet" href="tic-tac-toe-desktop.css">
+<link rel="stylesheet" href="tic-tac-toe-mobile.css">
+</head>
+<body>
+
+  <div class="backdrop" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+  </div>
+
+  <div class="top-bar">
+    <a class="back-link" href="index.html">← Back to shelf</a>
+  </div>
+
+  <div class="game-container">
+    <h1>Tic-Tac-Toe</h1>
+    <p class="subtitle" id="status">X's turn</p>
+    <div id="board"></div>
+
+    <div class="score-row">
+      <span><span class="score-x">X</span> <span id="score-x">0</span></span>
+      <span>Draws <span id="score-d">0</span></span>
+      <span><span class="score-o">O</span> <span id="score-o">0</span></span>
+    </div>
+
+    <div class="controls">
+      <button class="btn primary" id="reset-btn">New Round</button>
+    </div>
+  </div>
+
+<script>
+  const boardEl = document.getElementById('board');
+  const statusEl = document.getElementById('status');
+  const resetBtn = document.getElementById('reset-btn');
+  const scoreXEl = document.getElementById('score-x');
+  const scoreOEl = document.getElementById('score-o');
+  const scoreDEl = document.getElementById('score-d');
+
+  const WIN_LINES = [
+    [0,1,2], [3,4,5], [6,7,8], // rows
+    [0,3,6], [1,4,7], [2,5,8], // cols
+    [0,4,8], [2,4,6]           // diagonals
+  ];
+
+  let cells = Array(9).fill(null);
+  let currentPlayer = 'X';
+  let gameOver = false;
+  let scores = { X: 0, O: 0, D: 0 };
+
+  function render() {
+    boardEl.innerHTML = '';
+    cells.forEach((value, i) => {
+      const cell = document.createElement('div');
+      cell.classList.add('cell');
+      if (value) cell.classList.add('filled');
+      cell.dataset.index = i;
+
+      if (value) {
+        const mark = document.createElement('span');
+        mark.classList.add('mark', value.toLowerCase());
+        mark.textContent = value;
+        cell.appendChild(mark);
+      }
+
+      cell.addEventListener('click', () => handleMove(i));
+      boardEl.appendChild(cell);
+    });
+  }
+
+  function handleMove(index) {
+    if (gameOver || cells[index]) return;
+
+    cells[index] = currentPlayer;
+    render();
+
+    const winLine = checkWin(currentPlayer);
+    if (winLine) {
+      gameOver = true;
+      highlightWin(winLine);
+      statusEl.textContent = currentPlayer + ' wins!';
+      statusEl.className = 'subtitle is-win';
+      scores[currentPlayer] += 1;
+      updateScores();
+      return;
+    }
+
+    if (cells.every(c => c !== null)) {
+      gameOver = true;
+      statusEl.textContent = "It's a draw";
+      statusEl.className = 'subtitle is-draw';
+      scores.D += 1;
+      updateScores();
+      return;
+    }
+
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    statusEl.textContent = currentPlayer + "'s turn";
+    statusEl.className = 'subtitle';
+  }
+
+  function checkWin(player) {
+    return WIN_LINES.find(line => line.every(i => cells[i] === player)) || null;
+  }
+
+  function highlightWin(line) {
+    line.forEach(i => {
+      boardEl.children[i].classList.add('win-cell');
+    });
+  }
+
+  function updateScores() {
+    scoreXEl.textContent = scores.X;
+    scoreOEl.textContent = scores.O;
+    scoreDEl.textContent = scores.D;
+  }
+
+  function newRound() {
+    cells = Array(9).fill(null);
+    currentPlayer = 'X';
+    gameOver = false;
+    statusEl.textContent = "X's turn";
+    statusEl.className = 'subtitle';
+    render();
+  }
+
+  resetBtn.addEventListener('click', newRound);
+
+  render();
+</script>
+</body>
+</html>

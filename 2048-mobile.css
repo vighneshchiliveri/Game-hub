@@ -1,0 +1,62 @@
+/* ============================================
+   2048 — mobile layout
+   Spacing and sizing for screens 560px and narrower.
+   #board cell size is read live by the game's JS
+   (measureCellSize) so changing it here is safe —
+   tiles re-measure and reposition automatically.
+   ============================================ */
+@media (max-width: 560px) {
+
+  body {
+    gap: 12px;
+    padding: 18px 10px;
+  }
+
+  .top-bar {
+    max-width: 340px;
+  }
+
+  .game-container {
+    max-width: 340px;
+  }
+
+  .subtitle {
+    margin: 0 0 12px;
+    padding: 0 8px;
+  }
+
+  .hud {
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+
+  .stat {
+    min-width: 68px;
+    padding: 6px 12px;
+  }
+
+  #board {
+    grid-template-columns: repeat(4, minmax(54px, 70px));
+    grid-template-rows: repeat(4, minmax(54px, 70px));
+    gap: 8px;
+  }
+
+  .controls-row {
+    margin-top: 12px;
+  }
+
+  .dpad {
+    margin-top: 14px;
+    grid-template-columns: repeat(3, 48px);
+    grid-template-rows: repeat(3, 48px);
+  }
+
+  .dpad-btn {
+    font-size: 17px;
+  }
+
+  .hint {
+    margin-top: 10px;
+    padding: 0 8px;
+  }
+}

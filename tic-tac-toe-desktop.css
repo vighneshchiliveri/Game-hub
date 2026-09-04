@@ -1,0 +1,36 @@
+/* ============================================
+   Tic-Tac-Toe — desktop layout
+   Spacing and sizing for screens wider than 560px.
+   ============================================ */
+@media (min-width: 561px) {
+
+  body {
+    gap: 18px;
+    padding: 32px 16px;
+  }
+
+  .top-bar {
+    max-width: 420px;
+  }
+
+  .subtitle {
+    margin: 0 0 20px;
+  }
+
+  #board {
+    grid-template-columns: repeat(3, 96px);
+    grid-template-rows: repeat(3, 96px);
+  }
+
+  .cell {
+    font-size: 48px;
+  }
+
+  .controls {
+    margin-top: 20px;
+  }
+
+  .score-row {
+    margin-top: 18px;
+  }
+}

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2048 · Game-Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="2048.css">
+<link rel="stylesheet" href="2048-desktop.css">
+<link rel="stylesheet" href="2048-mobile.css">
+</head>
+<body>
+
+  <div class="backdrop" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+  </div>
+
+  <div class="top-bar">
+    <a class="back-link" href="index.html">← Back to shelf</a>
+  </div>
+
+  <div class="game-container">
+    <h1>2048</h1>
+    <p class="subtitle">Slide tiles with arrow keys or WASD. Same numbers merge.</p>
+
+    <div class="hud">
+      <div class="stat">
+        <span class="stat-label">Score</span>
+        <span class="stat-value" id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Best</span>
+        <span class="stat-value" id="best">0</span>
+      </div>
+    </div>
+
+    <div class="board-wrap">
+      <div id="board">
+        <!-- 16 background cells injected by JS -->
+        <div class="tiles-layer" id="tiles-layer"></div>
+      </div>
+
+      <div class="overlay" id="overlay">
+        <p class="overlay-title" id="overlay-title">Game Over</p>
+        <p class="overlay-sub" id="overlay-sub">No more moves left</p>
+        <button class="btn" id="overlay-btn">Try Again</button>
+      </div>
+    </div>
+
+    <div class="controls-row">
+      <button class="btn ghost" id="undo-btn">Undo</button>
+      <button class="btn ghost" id="restart-btn">Restart</button>
+    </div>
+
+    <div class="dpad" aria-hidden="true">
+      <div class="dpad-btn dpad-up" data-dir="up">▲</div>
+      <div class="dpad-btn dpad-left" data-dir="left">◀</div>
+      <div class="dpad-btn dpad-right" data-dir="right">▶</div>
+      <div class="dpad-btn dpad-down" data-dir="down">▼</div>
+    </div>
+
+    <p class="hint">Swipe on the board also works on touch devices.</p>
+  </div>
+
+<script>
+(function () {
+  const SIZE = 4;
+  const CELL_GAP = 10;     // matches CSS grid gap
+  const board = document.getElementById('board');
+  const tilesLayer = document.getElementById('tiles-layer');
+  const scoreEl = document.getElementById('score');
+  const bestEl = document.getElementById('best');
+  const overlay = document.getElementById('overlay');
+  const overlayTitle = document.getElementById('overlay-title');
+  const overlaySub = document.getElementById('overlay-sub');
+  const overlayBtn = document.getElementById('overlay-btn');
+  const restartBtn = document.getElementById('restart-btn');
+  const undoBtn = document.getElementById('undo-btn');
+  const dpadButtons = document.querySelectorAll('.dpad-btn');
+
+  let cellSize = 0; // computed from actual rendered grid
+
+  let grid, score, best, won, over, history;
+
+  function loadBest() {
+    return Number(localStorage.getItem('2048-best') || 0);
+  }
+
+  function saveBest(value) {
+    localStorage.setItem('2048-best', String(value));
+  }
+
+  best = loadBest();
+  bestEl.textContent = best;
+
+  function emptyGrid() {
+    return Array.from({ length: SIZE }, () => Array(SIZE).fill(0));
+  }
+
+  function cloneGrid(g) {
+    return g.map(row => row.slice());
+  }
+
+  function buildBackgroundCells() {
+    board.querySelectorAll('.bg-cell').forEach(el => el.remove());
+    for (let i = 0; i < SIZE * SIZE; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('bg-cell');
+      board.insertBefore(cell, tilesLayer);
+    }
+  }
+
+  function measureCellSize() {
+    const firstCell = board.querySelector('.bg-cell');
+    if (firstCell) cellSize = firstCell.getBoundingClientRect().width;
+  }
+
+  function randomEmptyCell() {
+    const empties = [];
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (grid[r][c] === 0) empties.push([r, c]);
+      }
+    }
+    if (empties.length === 0) return null;
+    return empties[Math.floor(Math.random() * empties.length)];
+  }
+
+  function addRandomTile() {
+    const spot = randomEmptyCell();
+    if (!spot) return;
+    const [r, c] = spot;
+    grid[r][c] = Math.random() < 0.9 ? 2 : 4;
+  }
+
+  function tileClass(value) {
+    if (value > 2048) return 't-super';
+    return 't-' + value;
+  }
+
+  function render(mergedCells) {
+    measureCellSize();
+    tilesLayer.innerHTML = '';
+
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        const value = grid[r][c];
+        if (!value) continue;
+
+        const tile = document.createElement('div');
+        tile.classList.add('tile', tileClass(value));
+        const isMerged = mergedCells && mergedCells.some(([mr, mc]) => mr === r && mc === c);
+        if (isMerged) tile.classList.add('is-merged');
+
+        const x = c * (cellSize + CELL_GAP);
+        const y = r * (cellSize + CELL_GAP);
+        tile.style.width = cellSize + 'px';
+        tile.style.height = cellSize + 'px';
+        tile.style.left = x + 'px';
+        tile.style.top = y + 'px';
+
+        const inner = document.createElement('div');
+        inner.classList.add('tile-inner');
+        inner.textContent = value;
+        const fontSize = value < 100 ? '1.5em' : value < 1000 ? '1.25em' : '1em';
+        inner.style.fontSize = fontSize;
+
+        tile.appendChild(inner);
+        tilesLayer.appendChild(tile);
+      }
+    }
+
+    scoreEl.textContent = score;
+  }
+
+  function gridsEqual(a, b) {
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (a[r][c] !== b[r][c]) return false;
+      }
+    }
+    return true;
+  }
+
+  // Slides + merges a single row to the left; returns { row, gained, mergedIndices }
+  function slideRowLeft(row) {
+    const filtered = row.filter(v => v !== 0);
+    const merged = [];
+    let gained = 0;
+    const mergedIndices = [];
+
+    for (let i = 0; i < filtered.length; i++) {
+      if (filtered[i] !== 0 && filtered[i] === filtered[i + 1]) {
+        const value = filtered[i] * 2;
+        merged.push(value);
+        gained += value;
+        mergedIndices.push(merged.length - 1);
+        i++; // skip the next, it was merged
+      } else {
+        merged.push(filtered[i]);
+      }
+    }
+
+    while (merged.length < SIZE) merged.push(0);
+    return { row: merged, gained, mergedIndices };
+  }
+
+  function move(direction) {
+    if (over) return false;
+
+    const before = cloneGrid(grid);
+    let gained = 0;
+    const mergedCells = [];
+
+    function getLine(index, dir) {
+      const line = [];
+      for (let i = 0; i < SIZE; i++) {
+        if (dir === 'left' || dir === 'right') line.push(grid[index][i]);
+        else line.push(grid[i][index]);
+      }
+      return line;
+    }
+
+    function setLine(index, dir, line) {
+      for (let i = 0; i < SIZE; i++) {
+        if (dir === 'left' || dir === 'right') grid[index][i] = line[i];
+        else grid[i][index] = line[i];
+      }
+    }
+
+    for (let index = 0; index < SIZE; index++) {
+      let line = getLine(index, direction);
+      let reversed = false;
+
+      if (direction === 'right' || direction === 'down') {
+        line = line.slice().reverse();
+        reversed = true;
+      }
+
+      const result = slideRowLeft(line);
+      gained += result.gained;
+
+      let finalLine = result.row;
+      if (reversed) finalLine = finalLine.slice().reverse();
+
+      setLine(index, direction, finalLine);
+
+      result.mergedIndices.forEach(mi => {
+        const pos = reversed ? (SIZE - 1 - mi) : mi;
+        if (direction === 'left' || direction === 'right') {
+          mergedCells.push([index, pos]);
+        } else {
+          mergedCells.push([pos, index]);
+        }
+      });
+    }
+
+    const changed = !gridsEqual(before, grid);
+    if (!changed) return false;
+
+    history = { grid: before, score };
+    score += gained;
+    if (score > best) {
+      best = score;
+      saveBest(best);
+      bestEl.textContent = best;
+    }
+
+    addRandomTile();
+    render(mergedCells);
+    checkWin();
+    checkGameOver();
+    return true;
+  }
+
+  function checkWin() {
+    if (won) return;
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (grid[r][c] >= 2048) {
+          won = true;
+          showOverlay('You hit 2048!', 'Keep going for a higher score, or start fresh.', 'Keep Playing', false, true);
+        }
+      }
+    }
+  }
+
+  function canMove() {
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (grid[r][c] === 0) return true;
+        const value = grid[r][c];
+        if (c < SIZE - 1 && grid[r][c + 1] === value) return true;
+        if (r < SIZE - 1 && grid[r + 1][c] === value) return true;
+      }
+    }
+    return false;
+  }
+
+  function checkGameOver() {
+    if (!canMove()) {
+      over = true;
+      showOverlay('Game Over', 'No more moves left — score ' + score, 'Try Again', true, false);
+    }
+  }
+
+  function showOverlay(title, sub, btnLabel, isOver, isWin) {
+    overlayTitle.textContent = title;
+    overlayTitle.className = 'overlay-title' + (isOver ? ' is-over' : isWin ? ' is-win' : '');
+    overlaySub.textContent = sub;
+    overlayBtn.textContent = btnLabel;
+    overlay.classList.add('is-visible');
+  }
+
+  function hideOverlay() {
+    overlay.classList.remove('is-visible');
+  }
+
+  function newGame() {
+    grid = emptyGrid();
+    score = 0;
+    won = false;
+    over = false;
+    history = null;
+    hideOverlay();
+    addRandomTile();
+    addRandomTile();
+    render();
+  }
+
+  function undo() {
+    if (!history) return;
+    grid = history.grid;
+    score = history.score;
+    history = null;
+    over = false;
+    hideOverlay();
+    render();
+  }
+
+  // keyboard controls
+  window.addEventListener('keydown', (e) => {
+    let handled = true;
+    switch (e.key) {
+      case 'ArrowUp': case 'w': case 'W': move('up'); break;
+      case 'ArrowDown': case 's': case 'S': move('down'); break;
+      case 'ArrowLeft': case 'a': case 'A': move('left'); break;
+      case 'ArrowRight': case 'd': case 'D': move('right'); break;
+      default: handled = false;
+    }
+    if (handled) e.preventDefault();
+  });
+
+  // on-screen dpad
+  dpadButtons.forEach(btn => {
+    btn.addEventListener('click', () => move(btn.dataset.dir));
+  });
+
+  // swipe controls
+  let touchStart = null;
+  const boardWrap = document.querySelector('.board-wrap');
+  boardWrap.addEventListener('touchstart', (e) => {
+    const t = e.changedTouches[0];
+    touchStart = { x: t.clientX, y: t.clientY };
+  }, { passive: true });
+
+  boardWrap.addEventListener('touchend', (e) => {
+    if (!touchStart) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStart.x;
+    const dy = t.clientY - touchStart.y;
+    if (Math.abs(dx) < 24 && Math.abs(dy) < 24) { touchStart = null; return; }
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+      move(dx > 0 ? 'right' : 'left');
+    } else {
+      move(dy > 0 ? 'down' : 'up');
+    }
+    touchStart = null;
+  }, { passive: true });
+
+  overlayBtn.addEventListener('click', () => {
+    if (over) { newGame(); }
+    else if (won) { hideOverlay(); }
+  });
+
+  restartBtn.addEventListener('click', newGame);
+  undoBtn.addEventListener('click', undo);
+
+  window.addEventListener('resize', () => render());
+
+  buildBackgroundCells();
+  newGame();
+})();
+</script>
+</body>
+</html>
